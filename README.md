@@ -1,10 +1,8 @@
-# llama thiking mode with tools and context monitoring
+# base llama models with custom thinking mode, tool calling and context monitoring.
 
-A Python codebase for adding thinking mode and tools over the normal llama models, has context tracking and suppourts exo.
+A Python codebase for adding thinking mode and tools over the normal llama models, has context tracking and suppourts exo, can read edit or delete files based on thinking and instructions.
 
 ### Tool Usage
-
-The AI can automatically use tools when needed:
 
 ```
 👤 You: What files are in this directory?
@@ -50,7 +48,7 @@ thinking_config = {
 1. **Clone the repository:**
    ```bash
    git clone <repository-url>
-   cd llmloops
+   cd <filename>
    ```
 
 2. **Create a virtual environment:**
@@ -134,7 +132,7 @@ run_batch_thinking(sample_questions)
 
 ### Context File
 
-Create a `context.md` file to provide additional context to the AI: (running 3.5 sonnet system instructions, not perfect)
+Create a `context.md` file to provide additional context to the AI: (running 3.5 sonnet system instructions, update as needed)
 The necessary context that helps run tools is in the `llm_thinking_mode.py`
 
 ```markdown
@@ -155,7 +153,6 @@ llmloops/
 ├── context.md              # Optional context file
 ├── requirements.txt        # Python dependencies
 ├── README.md              # This file
-└── venv/                  # Virtual environment
 ```
 
 ## Tools Available
@@ -210,29 +207,5 @@ The system is designed to work with OpenAI-compatible APIs. Make sure your local
 
 This project is open source. Please check the license file for details.
 
-## Troubleshooting
-
 ### Common Issues
-
-1. **API Connection Error**: Ensure your LLM API is running on the correct port
-2. **Context Overflow**: Use the `clear` command to reset conversation history
-3. **Tool Parsing Issues**: Check that tool calls follow the exact format shown in examples
-4. **File Not Found**: Ensure files exist in the workspace before reading them
-
-### Debug Mode
-
-Add debug prints to `llm_thinking_mode.py` to trace tool parsing and execution:
-
-```python
-# Enable debug mode
-DEBUG = True
-```
-
-## Future Enhancements
-
-- [ ] Add more tools (web search, file creation, etc.)
-- [ ] Support for different AI providers
-- [ ] Web interface for easier interaction
-- [ ] Plugin system for custom tools
-- [ ] Conversation export/import
-- [ ] Advanced context management strategies
+3. **Tool Parsing Issues**: Check that tool calls follow the exact format shown in examples, check context.md
