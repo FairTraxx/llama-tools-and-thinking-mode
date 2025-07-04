@@ -2,29 +2,23 @@
 
 A Python codebase for adding thinking mode and tools over the normal llama models, has context tracking and suppourts exo.
 
-## Features
+### Tool Usage
 
-### 🧠 Thinking Mode
-- **Transparent Reasoning**: The AI shows its step-by-step thought process before giving answers
-- **Structured Responses**: Clear separation between thinking process and final answer
-- **Interactive Chat**: Real-time conversation with thinking visualization
+The AI can automatically use tools when needed:
 
-### 🔧 Tool System
-- **File Operations**: Read files with line range support
-- **Directory Exploration**: List directory contents with file sizes
-- **Tool Parsing**: Automatic extraction and execution of tool calls from AI responses
-- **Extensible Architecture**: Easy to add new tools
+```
+👤 You: What files are in this directory?
 
-### 📊 Context Monitoring
-- **Token Tracking**: Real-time monitoring of context usage
-- **Smart Warnings**: Alerts when approaching context limits
-- **Auto-Management**: Suggestions for managing conversation history
-- **Model-Specific Limits**: Support for different model context windows
+🤖 AI is thinking...
 
-### 🎯 Multiple Modes
-- **Interactive Chat**: Real-time conversation mode
-- **Batch Processing**: Process multiple questions in sequence
-- **Context Management**: Clear history, show context stats
+🧠 THINKING PROCESS:
+The user wants to know what files are in the current directory. I should use the list_dir tool to explore the workspace.
+
+💡 FINAL RESPONSE:
+Let me check what files are available in the current directory.
+
+TOOL:list_dir(relative_workspace_path=".", explanation="Exploring the workspace to see available files")
+```
 
 ### Model Configuration
 
@@ -51,8 +45,6 @@ thinking_config = {
     "frequency_penalty": 0.2,  # Repetition avoidance
 }
 ```
-
-
 ## Installation
 
 1. **Clone the repository:**
@@ -76,6 +68,32 @@ thinking_config = {
    - Make sure you have exo or any other compaitable local or online LLM API running on `http://127.0.0.1:52415`
    - Update the `MODEL_NAME` in `llm_thinking_mode.py` if needed
 
+
+## Features
+
+### 🧠 Thinking Mode
+- **Transparent Reasoning**: The AI shows its step-by-step thought process before giving answers
+- **Structured Responses**: Clear separation between thinking process and final answer
+- **Interactive Chat**: Real-time conversation with thinking visualization
+
+### 🔧 Tool System
+- **File Operations**: Read files with line range support
+- **Directory Exploration**: List directory contents with file sizes
+- **Tool Parsing**: Automatic extraction and execution of tool calls from AI responses
+- **Extensible Architecture**: Easy to add new tools
+
+### 📊 Context Monitoring
+- **Token Tracking**: Real-time monitoring of context usage
+- **Smart Warnings**: Alerts when approaching context limits
+- **Auto-Management**: Suggestions for managing conversation history
+- **Model-Specific Limits**: Support for different model context windows
+
+### 🎯 Multiple Modes
+- **Interactive Chat**: Real-time conversation mode
+- **Batch Processing**: Process multiple questions in sequence
+- **Context Management**: Clear history, show context stats
+
+
 ## Usage
 
 ### Interactive Chat Mode
@@ -96,23 +114,7 @@ The assistant will start in interactive mode where you can:
 - `clear` - Clear conversation history
 - `help` - Show available commands
 
-### Tool Usage
 
-The AI can automatically use tools when needed:
-
-```
-👤 You: What files are in this directory?
-
-🤖 AI is thinking...
-
-🧠 THINKING PROCESS:
-The user wants to know what files are in the current directory. I should use the list_dir tool to explore the workspace.
-
-💡 FINAL RESPONSE:
-Let me check what files are available in the current directory.
-
-TOOL:list_dir(relative_workspace_path=".", explanation="Exploring the workspace to see available files")
-```
 
 ### Batch Processing Mode
 
@@ -132,7 +134,8 @@ run_batch_thinking(sample_questions)
 
 ### Context File
 
-Create a `context.md` file to provide additional context to the AI:
+Create a `context.md` file to provide additional context to the AI: (running 3.5 sonnet system instructions, not perfect)
+The necessary context that helps run tools is in the `llm_thinking_mode.py`
 
 ```markdown
 # Project Context
